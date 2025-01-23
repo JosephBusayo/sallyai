@@ -41,7 +41,7 @@ function CourseLayout({ params }) {
 
             <CourseBasicInfo course={course} refreshData={()=>GetCourse()}/>
             <CourseDetail course={course} />
-            <ChapterList course={course} />
+            <ChapterList course={course} refreshData={()=>GetCourse()} />
         </div>
     );
 }

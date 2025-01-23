@@ -16,21 +16,22 @@ import { Textarea } from '@/components/ui/textarea';
 import { db } from '@/app/configs/db';
 import { CourseList } from '@/app/configs/schema';
 import { eq } from 'drizzle-orm';
+import { Button } from '@/components/ui/button';
 
 
 function EditChapters({ course, index, refreshData }) {
     const Chapters = course?.courseOutput?.course?.chapters
     const [name, setName] = useState()
-    const [about, setAbout] = useState()
+    const [description, setDescription] = useState()
 
     useEffect(() => {
         setName(Chapters[index].name)
-        setDescription(Chapters[index].about)
+        setDescription(Chapters[index].description)
     }, [course])
 
     const onUpdateHandler = async () => {
         course.courseOutput.course.chapters[index].name = name
-        course.courseOutput.course.chapters[index].about= about
+        course.courseOutput.course.chapters[index].description= description
 
         const result = await db.update(CourseList).set({
             courseOutput: course?.courseOutput
@@ -52,7 +53,7 @@ function EditChapters({ course, index, refreshData }) {
                         </div>
                         <div>
                             <label>Course Description</label>
-                            <Textarea className="h-40" defaultValue={Chapters[index].about} onChange={(event) => setAbout(event?.target.value)} />
+                            <Textarea className="h-40" defaultValue={Chapters[index].description} onChange={(event) => setDescription(event?.target.value)} />
                         </div>
                     </DialogDescription>
                 </DialogHeader>
