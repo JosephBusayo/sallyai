@@ -4,10 +4,13 @@ import { useUser } from '@clerk/nextjs'
 import { eq } from 'drizzle-orm'
 import React, { useEffect, useState } from 'react'
 import CourseCard from './CourseCard'
+import { useContext } from 'react'
+import { UserCourseListContext } from '@/app/_context/UserCourseListContext'
 
 function UserCourseList() {
     const { user } = useUser()
     const [courseList, setCourseList] = useState()
+    const {userCourseList, setUserCourseList}=useContext(UserCourseListContext)
 
     useEffect(() => {
         user && getUserCourses()
@@ -18,6 +21,7 @@ function UserCourseList() {
             .where(eq(CourseList?.createdBy, user?.primaryEmailAddress?.emailAddress))
         console.log(result)
         setCourseList(result)
+        setUserCourseList(result)
     }
 
 

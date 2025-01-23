@@ -8,7 +8,7 @@ import EditCourseBasicInfo from "./EditCourseBasicInfo";
 import {storge} from '@/configs/firebaseConfig'
 
 
-function CourseBasicInfo({ course, refreshData }) {
+function CourseBasicInfo({ course, refreshData, edit=true }) {
     const [selectedFile, setSelectedFile] = useState()
 
     useEffect(()=>{
@@ -33,11 +33,8 @@ function CourseBasicInfo({ course, refreshData }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                     <h2 className="font-bold text-3xl">
-                        {course?.courseOutput?.course?.name}{" "}
-                        <EditCourseBasicInfo
-                            course={course}
-                            refreshData={() => refreshData(true)}
-                        />
+                        {course?.courseOutput?.course?.name}
+                        {edit && <EditCourseBasicInfo course={course} refreshData={() => refreshData(true)} /> }
                     </h2>
                     <p className="text-sm text-gray-400 mt-3">
                         {course?.courseOutput?.course?.description}
@@ -60,7 +57,7 @@ function CourseBasicInfo({ course, refreshData }) {
                             height={300}
                         />
                     </label>
-                    <input type="file" id="upload-image" className="opacity-0" onChange={onFileSelected}/>
+                    {edit && <input type="file" id="upload-image" className="opacity-0" onChange={onFileSelected}/>}
                 </div>
             </div>
         </div>
