@@ -22,10 +22,10 @@ function EditCourseBasicInfo({course}) {
     const [name, setName] = useState()
     const [description, setDescription] = useState()
 
- /*    useEffect(() =>{
-        setName(course.courseOutput.course.name)
-        setDescription(course.courseOutput.course.description)
-    }, [course]) */
+    useEffect(() =>{
+        setName(course?.courseOutput?.course?.name)
+        setDescription(course?.courseOutput?.course?.description)
+    }, [course])
 
     const onUpdateHandler=async() => {
         course.courseOutput.course.name = name
