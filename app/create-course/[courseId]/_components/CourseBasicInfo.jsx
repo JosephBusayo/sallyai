@@ -5,12 +5,22 @@ import React, { useState } from "react";
 import { HiOutlinePuzzle } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
 import EditCourseBasicInfo from "./EditCourseBasicInfo";
+import {storge} from '@/configs/firebaseConfig'
+
 
 function CourseBasicInfo({ course, refreshData }) {
     const [selectedFile, setSelectedFile] = useState()
-    const onFileSelected =(event) => {
+
+    const onFileSelected =async(event) => {
         const file = event.target.files[0]
         setSelectedFile(URL.createObjectURL(file))
+
+    /*     const fileName = Date.now()+'.jpg'
+        const storageRef=ref(storage, 'sallyai/'+fileName)
+
+        await uploadBytes(storageRef, file).then((snapshot)=>{
+            console.log("file uploaded")
+        }) 4HRS 5min */
     }
     return (
         <div className="p-10 border rounded-xl shadow-sm mt-5">
@@ -37,7 +47,7 @@ function CourseBasicInfo({ course, refreshData }) {
                 <div>
                     <label htmlFor="upload-image">
                         <Image
-                            className="w-full rounded-xl h-[300px] object-cover"
+                            className="w-full rounded-xl h-[300px] object-cover cursor-pointer"
                             src={selectedFile? selectedFile : "/creative.png"}
                             alt="course-img"
                             width={300}

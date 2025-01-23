@@ -32,6 +32,23 @@ export const GenerateCourseLayout_AI2 = {
     },
 };
 
+export const GenerateChapterLayout_AI2= {
+    sendMessage: async (prompt) => {
+        try {
+            const response = await client.chat.completions.create({
+                messages: [{ role: "user", content: prompt }],
+                ...generationConfig,
+            });
+
+            const content = response.choices[0]?.message?.content;
+            return { response: { text: () => content } };
+        } catch (error) {
+            console.error("Error while generating course layout:", error);
+            throw error;
+        }
+    },
+};
+
 
 
 
