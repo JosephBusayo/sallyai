@@ -10,11 +10,15 @@ import { CourseList } from './../../configs/schema';
 import { Button } from "@/components/ui/button";
 import { GenerateCourseLayout_AI2 } from "@/app/configs/AiModel";
 import LoadingDialog from "../_components/LoadingDialog";
+import service from "@/app/configs/service";
+import { useRouter } from "next/router";
 
 function CourseLayout({ params }) {
     const { user } = useUser();
     const [course, setCourse] = useState([]);
     const [loading, setLoading] = useState(false);
+    const router = useRouter()
+
 
     useEffect(() => {
         params && GetCourse();
@@ -48,18 +52,37 @@ function CourseLayout({ params }) {
             const PROMPT = `Explain the concept in Detail on Topic:${course?.name}, Chapter:${chapter?.name} strictly in JSON format with list of array with fields as title, description in detail and Code Example(if applicable)`;
             console.log(PROMPT)
 
-            if (index >= 0) {
-                try {
-                    const result = await GenerateCourseLayout_AI2.sendMessage(PROMPT)
-                    const responseText = result.response?.text();
-                    console.log("Response Text:", responseText);
-                    setLoading(false);
+            try {
+                let videoId = ''
+                /* YOUTBE : $hrs 23 npm i axios  npm run db:push*/
+                //Generate video url
+                service.getVideos(course?.name + ':' + chapter?.name).then(resp => {
+                    videoId = resp[0]?.id?.videoId
+                    console.log(resp)
+                })
 
-                } catch (e) {
-                    setLoading(false);
-                    console.log(e)
-                }
+                //generate chapter content
+                const result = await GenerateCourseLayout_AI2.sendMessage(PROMPT)
+                const responseText = result.response?.text();
+                console.log("Response Text:", responseText);
+
+                const cleanedResponse = responseText?.replace(/```json|```/g, "").trim();
+                const content = JSON.parse(cleanedResponse);
+
+                //Save chapter content to DB
+                await db.insert(Chapters).values({
+                    chapterId: index,
+                    courseId: course?.courseId,
+                    content: content,
+                    videoId: videoId
+                })
+                setLoading(false)
+
+            } catch (e) {
+                setLoading(false);
+                console.log(e)
             }
+            router.replace(`/create-course/${course?.courseId}/finish`);
         })
     }
     return (
