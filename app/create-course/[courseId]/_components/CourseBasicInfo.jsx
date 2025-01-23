@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HiOutlinePuzzle } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
 import EditCourseBasicInfo from "./EditCourseBasicInfo";
@@ -11,6 +11,12 @@ import {storge} from '@/configs/firebaseConfig'
 function CourseBasicInfo({ course, refreshData }) {
     const [selectedFile, setSelectedFile] = useState()
 
+    useEffect(()=>{
+        if(course){
+            setSelectedFile(course?.courseBanner)
+        }
+    },[course])
+    
     const onFileSelected =async(event) => {
         const file = event.target.files[0]
         setSelectedFile(URL.createObjectURL(file))

@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { GenerateCourseLayout_AI2 } from "@/app/configs/AiModel";
 import LoadingDialog from "../_components/LoadingDialog";
 import service from "@/app/configs/service";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 function CourseLayout({ params }) {
     const { user } = useUser();
