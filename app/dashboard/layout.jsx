@@ -18,7 +18,7 @@ function DashboardLayout({ children }) {
 
         <div className="md:ml-64">
           <Header />
-          <div className="p-10">{children}</div>
+          <div className="p-4 md:p-10">{children}</div>
         </div>
       </section>
     </UserCourseListContext.Provider>

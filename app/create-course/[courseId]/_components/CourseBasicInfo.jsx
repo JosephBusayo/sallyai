@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import EditCourseBasicInfo from "./EditCourseBasicInfo";
 /* import { storge } from '@/configs/firebaseConfig' */
 import Link from "next/link";
-
+import axios from "axios";
 
 function CourseBasicInfo({ course, refreshData, edit }) {
     const [selectedFile, setSelectedFile] = useState()
@@ -19,16 +19,33 @@ function CourseBasicInfo({ course, refreshData, edit }) {
     }, [course])
 
     const onFileSelected = async (event) => {
-        const file = event.target.files[0]
-        setSelectedFile(URL.createObjectURL(file))
+        const file = event.target.files[0];
+        if (!file) return;
+        setSelectedFile(URL.createObjectURL(file));
 
-        /*     const fileName = Date.now()+'.jpg'
-            const storageRef=ref(storage, 'sallyai/'+fileName)
-    
-            await uploadBytes(storageRef, file).then((snapshot)=>{
-                console.log("file uploaded")
-            }) 4HRS 5min */
-    }
+        // Create form data for Cloudinary
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "sallyai")
+
+        try {
+            const response = await axios.post(
+                `https://api.cloudinary.com/v1_1/dvos6rdeb/image/upload`,
+                formData
+            );
+
+            if (response.status === 200) {
+                setUploadUrl(response.data.secure_url); // Cloudinary's hosted image URL
+                console.log("File uploaded successfully:", response.data.secure_url);
+            } else {
+                console.error("Failed to upload to Cloudinary:", response);
+            }
+        } catch (error) {
+            console.error("Error uploading to Cloudinary:", error);
+        }
+    };
+
+
     return (
         <div className="p-10 border rounded-xl shadow-sm mt-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

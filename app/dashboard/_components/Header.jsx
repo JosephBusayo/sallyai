@@ -5,7 +5,9 @@ import React from "react";
 function Header() {
   return (
     <div className="flex justify-between items-center p-5 shadow-sm">
-      <Image src={"/logo.jpg"} width={50} height={50} alt="logo" />
+        <a href="/">
+        <h1 className="text-3xl text-primary">Sally</h1>
+      </a>
       <UserButton />
     </div>
   );

@@ -32,7 +32,9 @@ function CourseStart({ params }) {
     }
     return (
         <div>
-
+    <a href="/">
+        <h1 className="text-3xl text-primary">Sally</h1>
+      </a>
             <div className='fixed md:w-72 hidden md:block h-screen border-r shadow-sm'>
                 <h2 className='font-medium text-lg bg-primary p-3 text-white'>{course?.courseOutput?.course?.name}</h2>
 

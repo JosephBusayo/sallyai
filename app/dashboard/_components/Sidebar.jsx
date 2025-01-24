@@ -11,12 +11,12 @@ import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { IoPowerOutline } from "react-icons/io5";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { Progress } from "@/components/ui/progress" 
+import { Progress } from "@/components/ui/progress"
 import { UserCourseListContext } from "@/app/_context/UserCourseListContext";
 
 
 function SideBar() {
-    const {userCourseList, setUserCourseList} = useContext(UserCourseListContext)
+    const { userCourseList, setUserCourseList } = useContext(UserCourseListContext)
 
     const Menu = [
         {
@@ -37,18 +37,20 @@ function SideBar() {
             icon: <IoShieldCheckmarkOutline />,
             path: "/dashboard/upgrade",
         },
-        {
+    /*     {
             id: 4,
             name: "Logout",
             icon: <IoPowerOutline />,
             path: "/dashboard/logout",
-        },
+        }, */
     ];
 
     const path = usePathname();
     return (
         <div className="fixed h-full md:w-64 p-5 shadow-md">
-            <Image src={"/logo.jpg"} width={150} height={100} alt="logo" />
+            <a href="/">
+                <h1 className="text-3xl text-primary">Sally</h1>
+            </a>
             <hr className="my-5" />
 
             <ul>
@@ -66,7 +68,7 @@ function SideBar() {
             </ul>
 
             <div className="absolute bottom-10 w-[80%]">
-                <Progress value={(userCourseList?.length/5)*100} />
+                <Progress value={(userCourseList?.length / 5) * 100} />
                 <h2 className="text-sm my-2">{userCourseList?.length} out of 5 courses created</h2>
                 <h2 className="text-xs text-gray-500">Upgrade your plan for unlimited course generation</h2>
             </div>

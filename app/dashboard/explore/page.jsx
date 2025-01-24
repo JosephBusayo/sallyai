@@ -36,7 +36,7 @@ function Explore() {
             </div>
 
             <div className="flex justify-between mt-5">
-                {pageIndex =0 && <Button onClick={()=>setPageIndex(pageIndex-1)} >Previous Page</Button>}
+                {pageIndex==0 && <Button onClick={()=>setPageIndex(pageIndex-1)} >Previous Page</Button>}
                 <Button onClick={()=>setPageIndex(pageIndex+1)} >Next Page</Button>
             </div>
         </div>
