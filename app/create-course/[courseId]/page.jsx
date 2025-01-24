@@ -6,7 +6,7 @@ import ChapterList from "./_components/ChapterList";
 import { and, eq } from "drizzle-orm";
 import CourseBasicInfo from "./_components/CourseBasicInfo";
 import CourseDetail from "./_components/CourseDetail";
-import { CourseList } from './../../configs/schema';
+import { CourseList, Chapters } from './../../configs/schema';
 import { Button } from "@/components/ui/button";
 import { GenerateCourseLayout_AI2 } from "@/app/configs/AiModel";
 import LoadingDialog from "../_components/LoadingDialog";
@@ -43,57 +43,75 @@ function CourseLayout({ params }) {
             console.error("Error in GetCourse:", error);
         }
     };
-
-    const GenerateChapterContent = () => {
+    
+    const JSON_DEFAULT_FORMAT = `{
+        "chapter": "",
+        "about" : "",
+        "content": [
+          {
+            "title": "",
+            "description": "",
+            "code_example": ""
+          },
+          {
+            "title": "",
+            "description": "",
+            "code_example": ""
+          }
+        ]
+      }`
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const GenerateChapterContent = async () => {
         setLoading(true);
-        const chapters = course?.courseOutput?.course?.chapters
-
-        chapters.forEach(async (chapter, index) => {
-            const PROMPT = `Explain the concept in Detail on Topic:${course?.name}, Chapter:${chapter?.name} strictly in JSON format with list of array with fields as title, description in detail and Code Example(if applicable)`;
-            console.log(PROMPT)
-
+        const chapters = course?.courseOutput?.course?.chapters;
+    
+        for (const [index, chapter] of chapters.entries()) {
+            const PROMPT = `Explain the concept in Detail on Topic: ${course?.name}, Chapter: ${chapter?.name} strictly following this JSON format ${JSON_DEFAULT_FORMAT}. Follow this JSON format ${JSON_DEFAULT_FORMAT} `;
+            console.log(PROMPT);
+    
             try {
-                let videoId = ''
-                /* YOUTBE : $hrs 23 npm i axios  npm run db:push*/
-                //Generate video url
-                service.getVideos(course?.name + ':' + chapter?.name).then(resp => {
-                    videoId = resp[0]?.id?.videoId
-                    console.log(resp)
-                })
-
-                //generate chapter content
-                const result = await GenerateCourseLayout_AI2.sendMessage(PROMPT)
+                let videoId = '';
+    
+                // Generate video URL
+                const videos = await service.getVideos(`${course?.name}:${chapter?.name}`);
+                videoId = videos[0]?.id?.videoId || '';
+                console.log(videos);
+    
+                // Generate chapter content
+                const result = await GenerateCourseLayout_AI2.sendMessage(PROMPT);
                 const responseText = result.response?.text();
-                console.log("Response Text:", responseText);
-
+                console.log('Response Text:', responseText);
+    
                 const cleanedResponse = responseText?.replace(/```json|```/g, "").trim();
                 const content = JSON.parse(cleanedResponse);
-
-                //Save chapter content to DB
+    
+                // Save chapter content to DB
                 await db.insert(Chapters).values({
                     chapterId: index,
                     courseId: course?.courseId,
                     content: content,
                     videoId: videoId
                 })
-                setLoading(false)
-
-            } catch (e) {
-                setLoading(false);
-                console.log(e)
+    
+                console.log(`Chapter ${index + 1} processed.`);
+            } catch (error) {
+                console.error('Error while processing chapter:', error);
             }
-            await db.update(CourseList).set({
-                published: true,
-            })
-            router.replace(`/create-course/${course?.courseId}/finish`);
-        })
-    }
+    
+            // Introduce a delay of 1 second between requests
+            await delay(100);
+        }
+    
+        router.replace(`/create-course/${course?.courseId}/finish`);
+        setLoading(false);
+    };
+
     return (
         <div className="mt-10 px-7 md:px-20 lg:px-44">
             <h2 className="font-bold text-center text-2xl"> Course Layout </h2>
 
             <LoadingDialog loading={loading} />
-            <CourseBasicInfo course={course} refreshData={() => GetCourse()} />
+            <CourseBasicInfo course={course} edit={true} refreshData={() => GetCourse()} />
             <CourseDetail course={course} />
             <ChapterList course={course} refreshData={() => GetCourse()} />
 

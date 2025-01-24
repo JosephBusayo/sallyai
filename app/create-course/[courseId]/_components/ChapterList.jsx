@@ -8,7 +8,7 @@ function ChapterList({ course, refreshData, edit=true }) {
             <h2 className='font-medium text-xl'>Chapters</h2>
             <div className='mt-2'>
                 {course?.courseOutput?.course?.chapters.map((chapter, index) => (
-                    <div className='border p-5 rounded-lg mb-2 flex items-center justify-between'>
+                    <div className='border p-5 rounded-lg mb-2 flex items-center justify-between' key={index}>
                         <div className='flex gap-2 items-center'>
                             <h2 className='bg-primary flex-none h-10 w-10 text-white p-2 rounded-full text-center'>{index + 1}</h2>
                             <div>

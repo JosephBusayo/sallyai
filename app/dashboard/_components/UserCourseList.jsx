@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import CourseCard from './CourseCard'
 import { useContext } from 'react'
 import { UserCourseListContext } from '@/app/_context/UserCourseListContext'
+import { db } from '@/app/configs/db'
 
 function UserCourseList() {
     const { user } = useUser()

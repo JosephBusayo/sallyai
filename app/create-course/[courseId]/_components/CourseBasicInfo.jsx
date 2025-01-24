@@ -5,11 +5,11 @@ import React, { useEffect, useState } from "react";
 import { HiOutlinePuzzle } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
 import EditCourseBasicInfo from "./EditCourseBasicInfo";
-import { storge } from '@/configs/firebaseConfig'
+/* import { storge } from '@/configs/firebaseConfig' */
 import Link from "next/link";
 
 
-function CourseBasicInfo({ course, refreshData, edit = true }) {
+function CourseBasicInfo({ course, refreshData, edit }) {
     const [selectedFile, setSelectedFile] = useState()
 
     useEffect(() => {

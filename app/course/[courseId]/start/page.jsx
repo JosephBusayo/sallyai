@@ -1,16 +1,16 @@
 "use client"
 import { db } from '@/app/configs/db'
-import { eq } from 'drizzle-orm'
-import React from 'react'
-import { useEffect } from 'react'
+import { and, eq } from 'drizzle-orm'
+import React, { useEffect, useState } from 'react'
 import ChapterListCard from './_components/ChapterListCard'
 import ChapterContent from './_components/ChapterContent'
-import { Chapters } from '@/app/configs/schema'
+import { Chapters, CourseList } from '@/app/configs/schema'
 
 function CourseStart({ params }) {
     const [course, setCourse] = useState()
     const [selectedChapter, setSelectedChapter] = useState()
     const [chapterContent, setChapterContent] = useState()
+
     useEffect(() => {
         params && GetCourse()
     }, [params])
@@ -28,6 +28,7 @@ function CourseStart({ params }) {
             .where(and(eq(Chapters.chapterId, chapterId),
                 eq(Chapters.courseId, course?.courseId)))
         setChapterContent(result[0])
+        console.log(result)
     }
     return (
         <div>

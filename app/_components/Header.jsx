@@ -8,7 +8,10 @@ function Header() {
       {/* <Image src={'/logo.png'} width={150} height={100}/>*/}
 
       <h1 className="text-3xl">Sally</h1>
+      <a href="/dashboard">
+
       <Button>Get started </Button>
+      </a>
     </div>
   );
 }
