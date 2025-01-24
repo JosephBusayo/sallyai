@@ -5,28 +5,29 @@ import React, { useEffect, useState } from "react";
 import { HiOutlinePuzzle } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
 import EditCourseBasicInfo from "./EditCourseBasicInfo";
-import {storge} from '@/configs/firebaseConfig'
+import { storge } from '@/configs/firebaseConfig'
+import Link from "next/link";
 
 
-function CourseBasicInfo({ course, refreshData, edit=true }) {
+function CourseBasicInfo({ course, refreshData, edit = true }) {
     const [selectedFile, setSelectedFile] = useState()
 
-    useEffect(()=>{
-        if(course){
+    useEffect(() => {
+        if (course) {
             setSelectedFile(course?.courseBanner)
         }
-    },[course])
-    
-    const onFileSelected =async(event) => {
+    }, [course])
+
+    const onFileSelected = async (event) => {
         const file = event.target.files[0]
         setSelectedFile(URL.createObjectURL(file))
 
-    /*     const fileName = Date.now()+'.jpg'
-        const storageRef=ref(storage, 'sallyai/'+fileName)
-
-        await uploadBytes(storageRef, file).then((snapshot)=>{
-            console.log("file uploaded")
-        }) 4HRS 5min */
+        /*     const fileName = Date.now()+'.jpg'
+            const storageRef=ref(storage, 'sallyai/'+fileName)
+    
+            await uploadBytes(storageRef, file).then((snapshot)=>{
+                console.log("file uploaded")
+            }) 4HRS 5min */
     }
     return (
         <div className="p-10 border rounded-xl shadow-sm mt-5">
@@ -34,7 +35,7 @@ function CourseBasicInfo({ course, refreshData, edit=true }) {
                 <div>
                     <h2 className="font-bold text-3xl">
                         {course?.courseOutput?.course?.name}
-                        {edit && <EditCourseBasicInfo course={course} refreshData={() => refreshData(true)} /> }
+                        {edit && <EditCourseBasicInfo course={course} refreshData={() => refreshData(true)} />}
                     </h2>
                     <p className="text-sm text-gray-400 mt-3">
                         {course?.courseOutput?.course?.description}
@@ -44,20 +45,22 @@ function CourseBasicInfo({ course, refreshData, edit=true }) {
                         <HiOutlinePuzzle />
                         {course?.category}
                     </h2>
-                    <Button className="w-full mt-7">Start</Button>
+                    {!edit && <Link href={`/course/${course?.courseId}/start`}>
+                        <Button className="w-full mt-7">Start</Button>
+                    </Link>}
                 </div>
 
                 <div>
                     <label htmlFor="upload-image">
                         <Image
                             className="w-full rounded-xl h-[300px] object-cover cursor-pointer"
-                            src={selectedFile? selectedFile : "/creative.png"}
+                            src={selectedFile ? selectedFile : "/creative.png"}
                             alt="course-img"
                             width={300}
                             height={300}
                         />
                     </label>
-                    {edit && <input type="file" id="upload-image" className="opacity-0" onChange={onFileSelected}/>}
+                    {edit && <input type="file" id="upload-image" className="opacity-0" onChange={onFileSelected} />}
                 </div>
             </div>
         </div>

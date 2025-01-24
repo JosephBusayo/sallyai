@@ -35,7 +35,7 @@ function UserCourseList() {
                 )) 
                 :
                 [1,2,3].map((item, index)=>{
-                    <div key={index} className='w-full mt-5 bg-slate-200 animate-pulse rounded-lg h-[200px]'>
+                    <div key={index} className='w-full mt-5 bg-slate-200 animate-pulse rounded-lg h-[270px]'>
 
                     </div>
                 })
