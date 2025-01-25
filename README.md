@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sally
 
-## Getting Started
+Sally is a web application that uses OpenAI API and YouTube API to generate courses for users on any topic. This platform combines AI-generated content with curated YouTube video recommendations to enhance the learning experience.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **AI-Generated Courses**: Easily create courses on any topic using OpenAI's API.
+- **YouTube Video Recommendations**: Get relevant videos for your course with the YouTube API.
+
+## Live Demo
+
+Visit the live application: [Sally on Netlify](https://sallyai2.netlify.app/)
+
+## Tech Stack
+
+Sally is built using the following frameworks and tools:
+
+- **Next.js**: A React framework for server-side rendering and building web applications.
+- **Tailwind CSS**: A utility-first CSS framework for responsive and customizable designs.
+- **React Icons**: A rich collection of customizable icons for React.
+- **ShadCN UI**: For a modern UI/UX experience.
+- **Neon Drizzle**: For database management and querying.
+
+## Environment Variables
+
+To run this project, you will need to set the following environment variables in a `.env` file:
+
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=
+
+NEXT_PUBLIC_AI_API_KEY=
+NEXT_PUBLIC_DB_CONNECTION_STRING=
+
+NEXT_PUBLIC_YOUTUBE_API_KEY=
 ```
+## Setup Instructions
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To set up Sally locally, follow these steps:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd sally
+   ```
+2. **Install packages**:   
+   ```
+   npm install
+   ```
+3. **Start localserver**:
+    ```
+   npm run dev
+   npm run db:studio
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Future Improvements
+    
+    Improve performance speed.
+    Enhance the UI for a more user-friendly experience.
 
-## Learn More
+## Contributors
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    JosephBusayo (@JosephBusayo)
+    Chaska44 (@Chaska44)
