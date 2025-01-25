@@ -5,6 +5,8 @@ import { HiMiniEllipsisVertical } from 'react-icons/hi2'
 import DropdownOption from './DropdownOption'
 import { CourseList } from '@/app/configs/schema'
 import Link from 'next/link'
+import { db } from '@/app/configs/db'
+import { eq } from 'drizzle-orm'
 
 
 function CourseCard({ course, refreshData, displayUser=false }) {
@@ -38,7 +40,7 @@ function CourseCard({ course, refreshData, displayUser=false }) {
                 </div>
 
                 <div className='flex gap-2 items-center mt-2'>
-                    <Image src={course?.userProfileImage} width={20} height={20}  className='rounded-full'/>
+                    <Image src={course?.UserProfileImage} width={20} height={20}  className='rounded-full'/>
                     <h2 className='text-[11px] md:text-sm'>{course?.userName}</h2>
                 </div>
             </div>

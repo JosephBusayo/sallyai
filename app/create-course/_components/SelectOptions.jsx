@@ -19,13 +19,13 @@ function SelectOptions() {
           }));
       };
   return (
-    <div className="px-10 md:px-20 lg:px-44">
+    <div className="px-2 mt-10 md:mt-4 md:px-20 lg:px-44">
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="text-sm">Difficulty Level</label>
           <Select onValueChange={(value) => handleInputChange('level', value)} defaultValue = {userCourseInput?.level}>
-            <SelectTrigger className="h-14 text-lg">
-              <SelectValue placeholder="Select" />
+            <SelectTrigger className="h-14 text-xm md:text-lg">
+              <SelectValue placeholder="Select"/>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Beginner">Beginner</SelectItem>
@@ -39,7 +39,7 @@ function SelectOptions() {
           <label className="text-sm">Course Duration</label>
           <Select onValueChange={(value) => handleInputChange('duration', value)} defaultValue = {userCourseInput?.duration}>
   
-            <SelectTrigger className="h-14 text-lg">
+            <SelectTrigger className="h-14 text-xm md:text-lg">
               <SelectValue placeholder="Select" />
             </SelectTrigger>
             <SelectContent>
@@ -56,7 +56,7 @@ function SelectOptions() {
           <label className="text-sm">Include video</label>
           <Select onValueChange={(value) => handleInputChange('displayVideo', value)}   defaultValue = {userCourseInput?.displayVideo}>
         
-            <SelectTrigger className="h-14 text-lg">
+            <SelectTrigger className="h-14 text-xm md:text-lg">
               <SelectValue placeholder="Select" />
             </SelectTrigger>
             <SelectContent>
@@ -68,7 +68,7 @@ function SelectOptions() {
         
         <div>
           <label className="text-sm">No of Chapters</label>
-          <Input type="number" className="h-14 text-lg"
+          <Input type="number" className="h-14 text-xm md:text-lg"
                     defaultValue = {userCourseInput?.noOfChapters}
           onChange={(e => handleInputChange('noOfChapters', e.target.value))} />
         </div>
