@@ -111,8 +111,8 @@ function CreateCourse() {
             const cleanedResponse = responseText?.replace(/```json|```/g, "").trim();
             const parsedResponse = JSON.parse(cleanedResponse);
             console.log("Parsed Response:", parsedResponse);
-            setLoading(false);
             SaveCourseLayoutInDb(JSON.parse(cleanedResponse))
+            setLoading(false);
             return parsedResponse;
         } catch (error) {
             console.error("Error generating course layout:", error);
@@ -134,8 +134,8 @@ function CreateCourse() {
             UserProfileImage: user?.imageUrl
         });
         console.log("Saved to DB")
-        setLoading(false)
         router.replace(`/create-course/${id}`);
+        setLoading(false)
     };
     return (
         <div>

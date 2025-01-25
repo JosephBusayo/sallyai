@@ -26,24 +26,28 @@ function CourseBasicInfo({ course, refreshData, edit }) {
         const file = event.target.files[0];
         if (!file) return;
         setSelectedFile(URL.createObjectURL(file));
-
+    
         // Create form data for Cloudinary
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("upload_preset", "sallyai")
-
+        formData.append("upload_preset", "sallyai");
+    
         try {
             const response = await axios.post(
                 `https://api.cloudinary.com/v1_1/dvos6rdeb/image/upload`,
                 formData
             );
-
+    
             if (response.status === 200) {
                 setUploadUrl(response.data.secure_url); // Cloudinary's hosted image URL
-                console.log("File uploaded successfully:", response.data.secure_url);
-                await db.update(CourseList).set({
-                    courseBanner : uploadUrl
-                }).where(eq(CourseList.id,course?.id)).execute
+
+                console.log("File uploaded successfully:", uploadUrl);
+    
+                // Update the database
+                await db
+                    .update(CourseList)
+                    .set({ courseBanner: uploadUrl })
+                    .where(eq(CourseList.id, course?.id))
             } else {
                 console.error("Failed to upload to Cloudinary:", response);
             }
@@ -51,7 +55,7 @@ function CourseBasicInfo({ course, refreshData, edit }) {
             console.error("Error uploading to Cloudinary:", error);
         }
     };
-
+    
 
     return (
         <div className="p-4 md:p-10 border rounded-xl shadow-sm mt-5">
