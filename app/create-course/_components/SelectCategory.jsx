@@ -16,7 +16,7 @@ function SelectCategory() {
     <div className="px-10 md:px-20">
       <h2 className="my-5 text-center">Select course category</h2>
 
-      <div className="grid sm:grid-rows-3 md:grid-cols-3 gap-10 ">
+      <div className="grid md:grid-cols-3 gap-10 ">
         {CategoryList.map((item, index) => (
           <div
             key={index}

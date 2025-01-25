@@ -8,9 +8,13 @@ import EditCourseBasicInfo from "./EditCourseBasicInfo";
 /* import { storge } from '@/configs/firebaseConfig' */
 import Link from "next/link";
 import axios from "axios";
+import { db } from "@/app/configs/db";
+import { CourseList } from "@/app/configs/schema";
+import { eq } from "drizzle-orm";
 
 function CourseBasicInfo({ course, refreshData, edit }) {
     const [selectedFile, setSelectedFile] = useState()
+    const [uploadUrl, setUploadUrl] = useState("")
 
     useEffect(() => {
         if (course) {
@@ -37,6 +41,9 @@ function CourseBasicInfo({ course, refreshData, edit }) {
             if (response.status === 200) {
                 setUploadUrl(response.data.secure_url); // Cloudinary's hosted image URL
                 console.log("File uploaded successfully:", response.data.secure_url);
+                await db.update(CourseList).set({
+                    courseBanner : uploadUrl
+                }).where(eq(CourseList.id,course?.id)).execute
             } else {
                 console.error("Failed to upload to Cloudinary:", response);
             }
