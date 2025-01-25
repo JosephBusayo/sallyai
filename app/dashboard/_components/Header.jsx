@@ -6,7 +6,7 @@ import { FaBarsStaggered } from "react-icons/fa6";
 
 function Header() {
   const { toggle, setToggle } = useContext(UserCourseListContext);
-
+  
   const handleToggle = () => {
     setToggle(!toggle);
     console.log(toggle)
