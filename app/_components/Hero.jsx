@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import React from "react";
 
 function Hero() {
@@ -18,12 +19,9 @@ function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <a
-              className="block w-full rounded bg-primary px-12 py-3 text-sm font-medium text-white shadow hover:bg-accent focus:outline-none focus:ring active:bg-accent sm:w-auto"
-              href="/dashboard"
-            >
-              Get Started
-            </a>
+              <a href="/dashboard" >
+                  <Button >Get started </Button>
+                </a>
           </div>
         </div>
       </div>
