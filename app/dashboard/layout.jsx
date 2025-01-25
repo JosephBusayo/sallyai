@@ -7,12 +7,13 @@ import { UserCourseListContext } from "../_context/UserCourseListContext";
 
 function DashboardLayout({ children }) {
   const [userCourseList, setUserCourseList] = useState([])
+  const [toggle, setToggle] = useState(false);
 
   return (
-    <UserCourseListContext.Provider value={{userCourseList, setUserCourseList}}>
+    <UserCourseListContext.Provider value={{userCourseList, setUserCourseList, toggle, setToggle}}>
 
       <section>
-        <div className="md:2-64 hidden md:block">
+        <div className="md:2-64 absolute md:block">
           <SideBar />
         </div>
 

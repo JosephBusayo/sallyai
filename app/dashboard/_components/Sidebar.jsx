@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import React, { useContext } from "react";
 import {
     TiHomeOutline,
@@ -17,7 +16,7 @@ import { UserCourseListContext } from "@/app/_context/UserCourseListContext";
 
 function SideBar() {
     const { userCourseList, setUserCourseList } = useContext(UserCourseListContext)
-
+    const { toggle } = useContext(UserCourseListContext)
     const Menu = [
         {
             id: 1,
@@ -47,7 +46,7 @@ function SideBar() {
 
     const path = usePathname();
     return (
-        <div className="fixed h-full md:w-64 p-5 shadow-md">
+        <div className={`w-[200px] md:block md:fixed h-full md:w-64 p-5 shadow-md `}>
             <a href="/">
                 <h1 className="text-3xl text-primary">Sally</h1>
             </a>
