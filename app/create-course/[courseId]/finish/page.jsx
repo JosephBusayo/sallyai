@@ -16,6 +16,7 @@ function FinishScreen({params}) {
     const [course, setCourse] = useState([]);
     const [loading, setLoading] = useState(false);
     const router = useRouter()
+    const hostName = (typeof window !== 'undefined' ? window.location.origin : '')
 
 
     useEffect(() => {
@@ -51,7 +52,7 @@ function FinishScreen({params}) {
                 {process.env.NEXT_PUBLIC_HOST_NAME}/course/view/{course?.courseId} 
                 <HiOutlineClipboardDocumentCheck 
                 className='h-5 w-5 cursor-pointer'
-                onClick={async()=>await navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_HOST_NAME}course/view/${course?.courseId}`)}/>
+                onClick={async()=>await navigator.clipboard.writeText(`${hostName}course/view/${course?.courseId}`)}/>
             </h2>
             {/*Add share button*/}
         </div>
